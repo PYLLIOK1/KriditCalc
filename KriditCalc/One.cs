@@ -124,7 +124,7 @@ namespace KriditCalc
                 double absolit = proc / 100.0 / 12.0;
                 if (Vidplateja.SelectedIndex == 0)
                 {
-                    double mainPayment = Math.Round(sum  / srok, 2);
+                    double mainPayment = Math.Round(sum / srok, 2);
                     double procent = Math.Round(sum * ( proc / 100 ) / 12, 2);
                     procents.Add(procent);
                     double result = mainPayment + procent;
@@ -160,7 +160,7 @@ namespace KriditCalc
                     };
                     Program.Context.MainForm = new Two(table);
                     Program.Context.MainForm.Show();
-                    this.Close();
+                    Close();
                 }
                 if (Vidplateja.SelectedIndex == 1)
                 {
@@ -194,13 +194,13 @@ namespace KriditCalc
                         Dolg = osnovdolg,
                         Ostatok = ostatok,
                         Sum = percentPayment,
-                        TotalPaymentAmount = Math.Round(percentPayment.Sum(x => x) + procents.Sum(x => x),2),
-                        TheOverpaymentOfInterest =  Math.Round(procents.Sum(x => x)),
+                        TotalPaymentAmount = Math.Round(percentPayment.Sum(x => x) + procents.Sum(x => x), 2),
+                        TheOverpaymentOfInterest = Math.Round(procents.Sum(x => x)),
                         OverpaymentWithTheCommission = Math.Round(procents.Sum(x => x) + Komissiaa())
                     };
                     Program.Context.MainForm = new Two(table);
                     Program.Context.MainForm.Show();
-                    this.Close();
+                    Close();
                 }
             }
         }
@@ -256,7 +256,7 @@ namespace KriditCalc
             }
             return list;
         }
-        public double Komissiaa()
+        public double Komissiaa ()
         {
             if (komissiacombo.SelectedIndex == 0)
             {

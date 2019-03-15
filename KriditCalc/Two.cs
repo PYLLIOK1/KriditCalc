@@ -20,7 +20,7 @@ namespace KriditCalc
         {
             Program.Context.MainForm = new One();
             Program.Context.MainForm.Show();
-            this.Close();
+            Close();
         }
 
         private void filesave_Click (object sender, EventArgs e)
