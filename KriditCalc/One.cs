@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace KriditCalc
@@ -26,73 +27,86 @@ namespace KriditCalc
             }
             God.SelectedIndex = 0;
             mesac.SelectedIndex = 0;
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
         }
 
         private void TextboxKeyPress (object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar) && ( sender as TextBox ).Text.Length > 0 )
+            {
+                if(( sender as TextBox ).Text[0] == '0')
+                {
+                    ( sender as TextBox ).Text = e.KeyChar.ToString() + Sumcredit.Text.Substring(1, Sumcredit.Text.Length - 1);
+                    e.Handled = true;
+                    ( sender as TextBox ).Select(1, 0);
+                } 
+            }
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
+        }
+        private void Srokcredit_KeyPress (object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8)
             {
                 e.Handled = true;
             }
-            else
+            if (Srokcredit.Text.Length == 0)
+                if (e.KeyChar == '0') e.Handled = true;
+        }
+
+        private void Procstavka_KeyPress (object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar) && ( sender as TextBox ).Text == "0" && e.KeyChar != '.')
             {
-                if (e.KeyChar != 8)
+                ( sender as TextBox ).Text = e.KeyChar.ToString();
+                e.Handled = true;
+                ( sender as TextBox ).Select(1, 0);
+            }
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8 && ( e.KeyChar != '.' || ( sender as TextBox ).Text.IndexOf(".") != -1 ))
+            {
+                e.Handled = true;
+            }
+            if (( sender as TextBox ).Text == "" && e.KeyChar == '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void Komissia_KeyPress (object sender, KeyPressEventArgs e)
+        {
+            if (komissiacombo.SelectedIndex == 0)
+            {
+                if (char.IsDigit(e.KeyChar) && ( sender as TextBox ).Text == "0" && e.KeyChar != '.')
                 {
-                    TextBox textBox = sender as TextBox;
-                    if (textBox.Text.Length > 0)
+                    ( sender as TextBox ).Text = e.KeyChar.ToString();
+                    e.Handled = true;
+                    ( sender as TextBox ).Select(1, 0);
+                }
+                if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8 && ( e.KeyChar != '.' || ( sender as TextBox ).Text.IndexOf(".") != -1 ))
+                {
+                    e.Handled = true;
+                }
+                if (( sender as TextBox ).Text == "" && e.KeyChar == '.')
+                {
+                    e.Handled = true;
+                }
+            }
+            if (komissiacombo.SelectedIndex == 1)
+            {
+                if (char.IsDigit(e.KeyChar) && ( sender as TextBox ).Text.Length > 0)
+                {
+                    if (( sender as TextBox ).Text [0] == '0')
                     {
-                        long s = Convert.ToInt64(textBox.Text + e.KeyChar);
-                        if (s >= int.MaxValue)
-                        {
-                            textBox.Text = int.MaxValue.ToString();
-                            e.Handled = true;
-                        }
-                    }
-                    if (textBox.Name == "Procstavka" && textBox.Text.Length > 0)
-                    {
-                        int s = Convert.ToInt32(textBox.Text + e.KeyChar);
-                        if (s >= 100)
-                        {
-                            textBox.Text = "100";
-                            e.Handled = true;
-                        }
-                    }
-                    if (textBox.Name == "Komissia" && textBox.Text.Length > 0)
-                    {
-                        long s = Convert.ToInt64(textBox.Text + e.KeyChar);
-                        if (komissiacombo.SelectedIndex == 0 && s > 100)
-                        {
-                            textBox.Text = "100";
-                            e.Handled = true;
-                        }
-                        if (komissiacombo.SelectedIndex == 1 && Sumcredit.Text != "" && s > Convert.ToInt32(Sumcredit.Text))
-                        {
-                            textBox.Text = Sumcredit.Text;
-                            e.Handled = true;
-                        }
-                    }
-                    if (Sumcredit.Text == "" && textBox == Komissia)
-                    {
+                        ( sender as TextBox ).Text = e.KeyChar.ToString() + Sumcredit.Text.Substring(1, Sumcredit.Text.Length - 1);
                         e.Handled = true;
+                        ( sender as TextBox ).Select(1, 0);
                     }
                 }
-                else
+                if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8)
                 {
-                    if (Sumcredit.Text.Length > 1 && Komissia.Text.Length > 0)
-                    {
-                        long s = Convert.ToInt64(Sumcredit.Text.Substring(0, Sumcredit.Text.Length - 1));
-                        if (Convert.ToInt64(Komissia.Text) >= s)
-                        {
-                            Komissia.Text = s.ToString();
-                        }
-                    }
-                    if (Sumcredit.Text.Length == 1 && Komissia.Text.Length > 0)
-                    {
-                        if (Convert.ToInt64(Komissia.Text) > 0)
-                        {
-                            Komissia.Text = "";
-                        }
-                    }
+                    e.Handled = true;
                 }
             }
         }
@@ -269,5 +283,30 @@ namespace KriditCalc
                 return Convert.ToInt64(Komissia.Text);
             }
         }
+
+
+        private void Procstavka_TextChanged (object sender, EventArgs e)
+        {
+            if (double.TryParse(Procstavka.Text, out double num))
+            {
+                num = Convert.ToDouble(Procstavka.Text);
+                if (num >= 100)
+                {
+                    Procstavka.Text = "100";
+                }
+            }
+        }
+
+        private void Sumcredit_TextChanged (object sender, EventArgs e)
+        {
+            if(Sumcredit.Text != "")
+            {
+                if (Convert.ToInt64(Sumcredit.Text) > int.MaxValue)
+                {
+                    Sumcredit.Text = int.MaxValue.ToString();
+                }
+            }
+        }
     }
 }
+

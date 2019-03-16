@@ -141,6 +141,7 @@
             this.Sumcredit.ShortcutsEnabled = false;
             this.Sumcredit.Size = new System.Drawing.Size(197, 20);
             this.Sumcredit.TabIndex = 9;
+            this.Sumcredit.TextChanged += new System.EventHandler(this.Sumcredit_TextChanged);
             this.Sumcredit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextboxKeyPress);
             // 
             // Komissia
@@ -150,17 +151,18 @@
             this.Komissia.ShortcutsEnabled = false;
             this.Komissia.Size = new System.Drawing.Size(197, 20);
             this.Komissia.TabIndex = 10;
-            this.Komissia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextboxKeyPress);
+            this.Komissia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Komissia_KeyPress);
             // 
             // Procstavka
             // 
             this.Procstavka.Location = new System.Drawing.Point(166, 169);
-            this.Procstavka.MaxLength = 3;
+            this.Procstavka.MaxLength = 4;
             this.Procstavka.Name = "Procstavka";
             this.Procstavka.ShortcutsEnabled = false;
             this.Procstavka.Size = new System.Drawing.Size(197, 20);
             this.Procstavka.TabIndex = 11;
-            this.Procstavka.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextboxKeyPress);
+            this.Procstavka.TextChanged += new System.EventHandler(this.Procstavka_TextChanged);
+            this.Procstavka.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Procstavka_KeyPress);
             // 
             // Srokcredit
             // 
@@ -170,7 +172,7 @@
             this.Srokcredit.ShortcutsEnabled = false;
             this.Srokcredit.Size = new System.Drawing.Size(197, 20);
             this.Srokcredit.TabIndex = 12;
-            this.Srokcredit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextboxKeyPress);
+            this.Srokcredit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Srokcredit_KeyPress);
             // 
             // Vidplateja
             // 
