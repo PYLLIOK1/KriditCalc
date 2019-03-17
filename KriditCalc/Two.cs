@@ -14,7 +14,7 @@ namespace KriditCalc
             saveFileDialog1.Filter = "CSV files(*.csv)|*.csv";
             Table = table;
             dataGridView1.AllowUserToAddRows = false;
-            date(table.Date [0]);
+            Date(table.Date [0]);
         }
         private void Back_Click (object sender, EventArgs e)
         {
@@ -23,7 +23,7 @@ namespace KriditCalc
             Close();
         }
 
-        private void filesave_Click (object sender, EventArgs e)
+        private void Filesave_Click (object sender, EventArgs e)
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
@@ -33,7 +33,7 @@ namespace KriditCalc
                 sw.WriteLine("Номер,Дата,Сумма,Долг,Проценты,Остаток");
                 for (int i = 0; i < Table.Date.Count; i++)
                 {
-                    string str = Convert.ToString(i + 1) + "," + date(Table.Date [i]) + "," + Table.Sum [i].ToString().Replace(",", ".") + "," +
+                    string str = Convert.ToString(i + 1) + "," + Date(Table.Date [i]) + "," + Table.Sum [i].ToString().Replace(",", ".") + "," +
                         Table.Dolg.ToString().Replace(",", ".") + "," + Table.Procent [i].ToString().Replace(",", ".") + "," + Table.Ostatok [i].ToString().Replace(",", ".");
                     sw.WriteLine(str);
                 }
@@ -49,11 +49,10 @@ namespace KriditCalc
             label6.Text = Table.OverpaymentWithTheCommission.ToString() + " руб.";
             for (int i = 0; i < Table.Date.Count; i++)
             {
-                string [] str = { Convert.ToString(i + 1), Table.Date [i], Table.Sum [i].ToString(), Table.Dolg.ToString(), Table.Procent [i].ToString(), Table.Ostatok [i].ToString() };
                 dataGridView1.Rows.Add(Convert.ToString(i + 1), Table.Date [i], Table.Sum [i].ToString(), Table.Dolg.ToString(), Table.Procent [i].ToString(), Table.Ostatok [i].ToString());
             }
         }
-        public string date (string str)
+        public string Date (string str)
         {
             str = str.Replace(" ", "-").Replace(",", "").Replace("Январь", "01").Replace("Февраль", "02").Replace("Март", "03").Replace("Апрель", "04")
                 .Replace("Май", "05").Replace("Июнь", "06").Replace("Июль", "07").Replace("Август", "08").Replace("Сентябрь", "09")

@@ -71,7 +71,7 @@
             this.filesave.TabIndex = 1;
             this.filesave.Text = "Выгрузить в файл";
             this.filesave.UseVisualStyleBackColor = true;
-            this.filesave.Click += new System.EventHandler(this.filesave_Click);
+            this.filesave.Click += new System.EventHandler(this.Filesave_Click);
             // 
             // Back
             // 

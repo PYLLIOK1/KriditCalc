@@ -55,7 +55,6 @@ namespace KriditCalc
             if (Srokcredit.Text.Length == 0)
                 if (e.KeyChar == '0') e.Handled = true;
         }
-
         private void Procstavka_KeyPress (object sender, KeyPressEventArgs e)
         {
             if (char.IsDigit(e.KeyChar) && ( sender as TextBox ).Text == "0" && e.KeyChar != '.')
@@ -73,7 +72,6 @@ namespace KriditCalc
                 e.Handled = true;
             }
         }
-
         private void Komissia_KeyPress (object sender, KeyPressEventArgs e)
         {
             if (komissiacombo.SelectedIndex == 0)
@@ -111,7 +109,49 @@ namespace KriditCalc
             }
         }
 
-        private void komissiacombo_SelectedIndexChanged (object sender, EventArgs e)
+
+        private void Procstavka_TextChanged (object sender, EventArgs e)
+        {
+            if (double.TryParse(Procstavka.Text, out double num))
+            {
+                num = Convert.ToDouble(Procstavka.Text);
+                if (num >= 100)
+                {
+                    Procstavka.Text = "100";
+                }
+            }
+        }
+        private void Sumcredit_TextChanged (object sender, EventArgs e)
+        {
+            if (Sumcredit.Text != "")
+            {
+                if (Convert.ToInt64(Sumcredit.Text) > int.MaxValue)
+                {
+                    Sumcredit.Text = int.MaxValue.ToString();
+                }
+            }
+        }
+        private void Komissia_TextChanged (object sender, EventArgs e)
+        {
+            if (double.TryParse(Komissia.Text, out double num) && komissiacombo.SelectedIndex == 0)
+            {
+                num = Convert.ToDouble(Komissia.Text);
+                if (num >= 100)
+                {
+                    Komissia.Text = "100";
+                }
+            }
+            if (long.TryParse(Komissia.Text, out long num1) && komissiacombo.SelectedIndex == 1)
+            {
+                num1 = Convert.ToInt64(Komissia.Text);
+                if (num1 > Convert.ToInt32(Sumcredit.Text))
+                {
+                    Komissia.Text = Sumcredit.Text;
+                }
+            }
+        }
+
+        private void Komissiacombo_SelectedIndexChanged (object sender, EventArgs e)
         {
             if (komissiacombo.SelectedIndex == 0)
             {
@@ -125,7 +165,7 @@ namespace KriditCalc
             }
         }
 
-        private void button1_Click (object sender, EventArgs e)
+        private void Button1_Click (object sender, EventArgs e)
         {
             if (Proverka())
             {
@@ -281,30 +321,6 @@ namespace KriditCalc
             else
             {
                 return Convert.ToInt64(Komissia.Text);
-            }
-        }
-
-
-        private void Procstavka_TextChanged (object sender, EventArgs e)
-        {
-            if (double.TryParse(Procstavka.Text, out double num))
-            {
-                num = Convert.ToDouble(Procstavka.Text);
-                if (num >= 100)
-                {
-                    Procstavka.Text = "100";
-                }
-            }
-        }
-
-        private void Sumcredit_TextChanged (object sender, EventArgs e)
-        {
-            if(Sumcredit.Text != "")
-            {
-                if (Convert.ToInt64(Sumcredit.Text) > int.MaxValue)
-                {
-                    Sumcredit.Text = int.MaxValue.ToString();
-                }
             }
         }
     }

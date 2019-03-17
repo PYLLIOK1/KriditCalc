@@ -132,7 +132,7 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "Рассчитать";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // Sumcredit
             // 
@@ -151,6 +151,7 @@
             this.Komissia.ShortcutsEnabled = false;
             this.Komissia.Size = new System.Drawing.Size(197, 20);
             this.Komissia.TabIndex = 10;
+            this.Komissia.TextChanged += new System.EventHandler(this.Komissia_TextChanged);
             this.Komissia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Komissia_KeyPress);
             // 
             // Procstavka
@@ -262,7 +263,7 @@
             this.komissiacombo.Name = "komissiacombo";
             this.komissiacombo.Size = new System.Drawing.Size(164, 21);
             this.komissiacombo.TabIndex = 19;
-            this.komissiacombo.SelectedIndexChanged += new System.EventHandler(this.komissiacombo_SelectedIndexChanged);
+            this.komissiacombo.SelectedIndexChanged += new System.EventHandler(this.Komissiacombo_SelectedIndexChanged);
             // 
             // One
             // 
